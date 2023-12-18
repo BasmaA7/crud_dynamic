@@ -63,37 +63,8 @@ class crud_dynamic{
             die("Error in prepared statement: " . $err->getMessage());
         }
     }
-
-    public function select($mysqli, $table, $columns = "*", $where = null) {
-        // Use prepared statements to prevent SQL injection
-        $sql = "SELECT $columns FROM $table";
     
-        if ($where !== null) {
-            $sql .= " WHERE $where";
-        }
-    
-        $stmt = mysqli_prepare($mysqli, $sql);
-    
-        if (!$stmt) {
-            die("Error in prepared statement: " . mysqli_error($mysqli));
-        }
-    
-        // Execute the prepared statement
-        mysqli_stmt_execute($stmt);
-    
-        // Get the result set
-        $result = mysqli_stmt_get_result($stmt);
-    
-        // Close the statement
-        mysqli_stmt_close($stmt);
-    
-        return $result;
-    }
-    public function __construct() {
-        $this->pdo = Config::getPdo();
-    }
-
-    public function selectRecords($table, $columns = "*", $where = null) {
+    public function select($table, $columns = "*", $where = null) {
         // Use prepared statements to prevent SQL injection
         $sql = "SELECT $columns FROM $table";
 
@@ -109,39 +80,8 @@ class crud_dynamic{
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $result;
-        } catch (PDOException $e) {
-            die("Error in prepared statement: " . $e->getMessage());
+        } catch (PDOException $err) {
+            die("Error in prepared statement: " . $err->getMessage());
         }
     }
 }
-    
-
-    
-    
-    // <?php
-
-    // require_once 'config.php';
-    
-    // class Database {
-    //     private $conn;
-    
-    //     public function __construct($host, $username, $password, $database) {
-           
-    
-    //     public function getConnection() {
-    //         return $this->conn;
-    //     }
-    
-    //     public function __destruct() {
-    //         $this->conn = null;
-    //     }
-    // }
-    
-    // // Exemple d'utilisation :
-    // $database = new Database($host, $username, $password, $database);
-    // $pdoInstance = $database->getConnection();
-    
-    // // Maintenant, $pdoInstance contient l'instance PDO connectée à la base de données.
-    
-
-
