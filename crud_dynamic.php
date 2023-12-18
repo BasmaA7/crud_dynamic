@@ -1,7 +1,7 @@
 <?php
 require 'connexion.php';
-
 class crud_dynamic{
+    private $pdo;
     public function insert($table, $data) {
         // Use prepared statements to prevent SQL injection
         $columns = implode(',', array_keys($data));

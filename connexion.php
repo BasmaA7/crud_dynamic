@@ -1,8 +1,7 @@
 
 <?php
-include "config.php";
-class Connexion {
- 
+include ".env";
+class connectDatabase {
     protected function __construct($servername, $username, $password, $database) {
         try {
             $pdo = new PDO('mysql:host=' . $this->servername . ';dbname=' . $this->dbname, $this->username, $this->password);
