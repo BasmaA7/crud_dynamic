@@ -1,30 +1,58 @@
 <?php 
-require "connexion.php";
-require "crud_dynamic.php";
- // Usage example:
+require "Crud_dynamic.php";
 
-$mysqli =connectDatabase();
+// Exemple d'utilisation pour l'insertion
+$crud = new Crud_dynamic();
 
-// Insert example
-$insertData = array('name' => 'Basma', 'column2' => 'value2');
-insertRecord($mysqli, 'task_db', $insertData);
+// Données à insérer
+$dataToInsert = ['name' => 'Basma', 'email' => 'basma@gmail.com'];
 
-// Update example
-$updateData = array('column1' => 'new_value1', 'column2' => 'new_value2');
-updateRecord($mysqli, 'task_db', $updateData, 1);
+// Table dans laquelle insérer les données
+ $tableName = 'user';
 
-// Delete example
-deleteRecord($mysqli, 'task_db', 1);
+// Appel de la méthode insert
+$result = $crud->insert($table, $dataToInsert);
 
-// Select example
-$selectResult = selectRecords($mysqli, 'task_db', 'column1, column2', 'column1 = "value1"');
+// Vérification du résultat de l'insertion
+if ($result) {
+    echo "Enregistrement inséré avec succès !";
+} else {
+    echo "Erreur lors de l'insertion de l'enregistrement.";
+}
+// exemple update
+$crud = new Crud_dynamic();
 
-// Process select result if needed
-while ($row = mysqli_fetch_assoc($selectResult)) {
-    // Process each row
+$dataToUpdate = ['name' => ''];
+
+// Mettre à jour l'utilisateur avec l'ID 1
+$result = $crud->update('user', $dataToUpdate, 1);
+
+if ($result) {
+    echo "Mise à jour réussie !";
+} else {
+    echo "Erreur lors de la mise à jour.";
+}
+// exemple de delete
+$crud = new Crud_dynamic();
+
+// Supprimer user avec l'ID 1
+$result = $crud->delete('user', 1);
+
+if ($result) {
+    echo "Suppression réussie !";
+} else {
+    echo "Erreur lors de la suppression.";
 }
 
-// Close the connection
-mysqli_close($mysqli);
+//select 
+$crud = new Crud_dynamic();
 
-?>
+// Sélectionner tous les utilisateurs avec le nom "John"
+$users = $crud->select('user', '*', "name = ''");
+
+// Afficher les résultats
+foreach ($users as $user) {
+    echo "ID: " . $user['id'] . ", Nom: " . $user['name'] . "<br>";
+}
+
+

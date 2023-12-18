@@ -1,7 +1,12 @@
 <?php
 require 'connexion.php';
-class crud_dynamic{
+class Crud_dynamic{
     private $pdo;
+
+    public function __construct() {
+        $this->pdo = connexion::getPdo();
+    }
+
     public function insert($table, $data) {
         // Use prepared statements to prevent SQL injection
         $columns = implode(',', array_keys($data));
@@ -22,10 +27,10 @@ class crud_dynamic{
 
     public function update($table, $data, $id){
             $setStatements = array_map(function ($key) {
-                return "$key = :$key";
+                return "$key = ?";
             }, array_keys($data));
     
-            $sql = "UPDATE $table SET " . implode(', ', $setStatements) . " WHERE id = :id";
+            $sql = "UPDATE $table SET " . implode(', ', $setStatements) . " WHERE id = ?";
     
             try {
                 $stmt = $this->pdo->prepare($sql);
