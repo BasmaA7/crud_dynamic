@@ -1,22 +1,17 @@
-
 <?php
+class Connexion {
+    public static function getPdo() {
+        $serveurName = 'localhost';
+        $userName = 'root';
+        $Password = '';
+        $db = 'task_db';
 
-require 'config.php';
-class connexion{
-    protected function __construct() {
-        global $servername, $username, $password, $database;
         try {
-            $pdo = new PDO('mysql:host=' . $this->servername . ';dbname=' . $this->dbname, $this->username, $this->password);
-            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            
-        } catch (PDOException $err) {
-            die("Connection failed: " . $err->getMessage());
+            $pdo = new PDO("mysql:host=$serveurName;dbname=$db;charset=utf8mb4", $userName, $Password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        } catch (PDOException $e) {
+            die("Échec de la connexion : " . $e->getMessage());
         }
     }
-     public function getPdo() {
-        return $this->conx;
-    }
 }
-
-
-

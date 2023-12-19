@@ -1,58 +1,58 @@
-<?php 
+<?php
+
 require "Crud_dynamic.php";
 
 // Exemple d'utilisation pour l'insertion
 $crud = new Crud_dynamic();
+// $data = ['name' => 'Nouhaila', 'email' => 'noha@gmail.com'];
 
-// Données à insérer
-$dataToInsert = ['name' => 'Basma', 'email' => 'basma@gmail.com'];
+// $result = $crud->insertRecord('user', $data);
 
-// Table dans laquelle insérer les données
- $tableName = 'user';
+// if ($result) {
+//     echo "Enregistrement inséré avec succès !";
+// } else {
+//     echo "Erreur lors de l'insertion de l'enregistrement.";
+// }
 
-// Appel de la méthode insert
-$result = $crud->insert($table, $dataToInsert);
 
-// Vérification du résultat de l'insertion
-if ($result) {
-    echo "Enregistrement inséré avec succès !";
-} else {
-    echo "Erreur lors de l'insertion de l'enregistrement.";
-}
-// exemple update
+
+// ***** Exemple Update *****
+// $crud = new Crud_dynamic();
+
+// $data= ['name' => 'Amal', 'email' => 'Amal@gmail.com'];
+// $id = 4;
+
+// $result = $crud->updateRecord('user', $data, $id);
+
+// if ($result) {
+//     echo "Record updated successfully!";
+// } else {
+//     echo "Error updating record.";
+// }
+
+
+
+// ***** Example Delete *****
 $crud = new Crud_dynamic();
 
-$dataToUpdate = ['name' => ''];
+// $id =12;
 
-// Mettre à jour l'utilisateur avec l'ID 1
-$result = $crud->update('user', $dataToUpdate, 1);
+// $result = $crud->deleteRecord('user', $id);
 
-if ($result) {
-    echo "Mise à jour réussie !";
-} else {
-    echo "Erreur lors de la mise à jour.";
-}
-// exemple de delete
+// if ($result) {
+//     echo "Record deleted successfully!";
+// } else {
+//     echo "Error deleting record.";
+// }
+
+
+
+// ***** Example Select ****
 $crud = new Crud_dynamic();
 
-// Supprimer user avec l'ID 1
-$result = $crud->delete('user', 1);
+$result = $crud->selectRecord('user', 'id, name,email' );
 
-if ($result) {
-    echo "Suppression réussie !";
-} else {
-    echo "Erreur lors de la suppression.";
+// Example: Fetch data from the result set
+foreach ($result as $row) {
+    print_r($row);
 }
-
-//select 
-$crud = new Crud_dynamic();
-
-// Sélectionner tous les utilisateurs avec le nom "John"
-$users = $crud->select('user', '*', "name = ''");
-
-// Afficher les résultats
-foreach ($users as $user) {
-    echo "ID: " . $user['id'] . ", Nom: " . $user['name'] . "<br>";
-}
-
-
